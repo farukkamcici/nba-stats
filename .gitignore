@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.venv/
+venv/
+.env/
+.env.*
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Airflow
+airflow/logs/
+airflow/*/logs/
+airflow/*/webserver_config.py
+
+# dbt
+**/target/
+**/dbt_packages/
+**/logs/
+profiles.yml
+
+# Docker
+**/docker-compose.override.yml
+
+# Local data / outputs
+**/data/
+**/tmp/
+**/tmp_*
+**/*.log
+
+# Credentials (avoid committing secrets)
+*service-account*.json
+*credentials*.json
+*.pem
+*.key
+
+AGENTS.md
