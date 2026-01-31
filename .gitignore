@@ -46,3 +46,8 @@ profiles.yml
 *.key
 
 AGENTS.md
+
+# Local task tracking (user-specific)
+tasks/
+
+.env
