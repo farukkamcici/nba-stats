@@ -51,3 +51,6 @@ AGENTS.md
 tasks/
 
 .env
+
+.venv-dbt
+docs/dbt_bigquery_json_basics.md

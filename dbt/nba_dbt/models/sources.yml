@@ -1,0 +1,9 @@
+version 2:
+
+sources:
+  - name: nba_raw_stg
+    database: nba-stats-485819
+    schema: nba_raw_stg
+    tables:
+      - name: raw_scoreboard_json
+      - name: raw_boxscore_json

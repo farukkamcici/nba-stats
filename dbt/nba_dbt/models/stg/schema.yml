@@ -1,0 +1,83 @@
+version: 2
+
+models:
+  - name: stg_scoreboard_games
+    description: "Parsed game-level records from raw scoreboard payload."
+    columns:
+      - name: game_date
+        description: "Logical game date from raw source partition."
+        data_tests:
+          - not_null
+      - name: game_id
+        description: "NBA game identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: home_team_id
+        description: "Home team identifier."
+        data_tests:
+          - not_null
+      - name: away_team_id
+        description: "Away team identifier."
+        data_tests:
+          - not_null
+
+  - name: stg_boxscore_team
+    description: "Parsed team-level boxscore stats (home and away unified)."
+    columns:
+      - name: game_id
+        description: "NBA game identifier."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_scoreboard_games')
+                field: game_id
+      - name: team_id
+        description: "NBA team identifier."
+        data_tests:
+          - not_null
+      - name: pts
+        description: "Team points in the game."
+        data_tests:
+          - not_null
+      - name: reb
+        description: "Team total rebounds in the game."
+        data_tests:
+          - not_null
+      - name: ast
+        description: "Team assists in the game."
+        data_tests:
+          - not_null
+    data_tests:
+      - unique:
+          arguments:
+            column_name: "concat(game_id, '-', team_id)"
+
+  - name: stg_boxscore_player
+    description: "Parsed player-level boxscore stats."
+    columns:
+      - name: game_id
+        description: "NBA game identifier."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_scoreboard_games')
+                field: game_id
+      - name: player_id
+        description: "NBA player identifier."
+        data_tests:
+          - not_null
+      - name: team_id
+        description: "NBA team identifier for the player row."
+        data_tests:
+          - not_null
+      - name: pts
+        description: "Player points in the game."
+        data_tests:
+          - not_null
+    data_tests:
+      - unique:
+          arguments:
+            column_name: "concat(game_id, '-', player_id)"
